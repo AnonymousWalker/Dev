@@ -1,0 +1,18 @@
+﻿@model List<MyLab.ViewModel.EmployeeViewModel>
+
+<div class="row">
+    <div class="col-md-1">ID</div>
+    <div class="col-md-3">First Name</div>
+    <div class="col-md-3">Last Name</div>
+    <div class="col-md-2">Company</div>
+</div>
+@foreach (var emp in Model)
+{
+    <div class="row">
+        <div class="col-md-1">@emp.EmployeeID</div>
+        <div class="col-md-3">@emp.FirstName</div>
+        <div class="col-md-3">@emp.LastName</div>
+        <div class="col-md-2">@emp.Company</div>
+    </div>
+}
+

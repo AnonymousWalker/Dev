@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="af07904c7f7245be8c69ebb944093fdb" Name="Diagram1">
+        <EntityTypeShape EntityType="AdministratorModel.AdminFile" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdministratorModel.Employee" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdministratorModel.Gender" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdministratorModel.Title" Width="1.5" PointX="0.625" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="AdministratorModel.FK_AdminFile_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="AdministratorModel.FK_AdminFile_Title" ManuallyRouted="false" />
+        <AssociationConnector Association="AdministratorModel.FK_Employee_AdminFile" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AdministratorModel.Company" Width="1.5" PointX="3.375" PointY="4.875" />
+        <AssociationConnector Association="AdministratorModel.FK_Employee_Company" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

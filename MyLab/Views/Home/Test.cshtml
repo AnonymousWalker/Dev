@@ -1,0 +1,67 @@
+﻿@model List<MyLab.Models.Employee>
+@{
+    ViewBag.Title = "Test Page";
+}
+<h1>Test</h1>
+<div id="table">
+    <table id="table " class="table-responsive">
+            <thead class="table table-bordered">
+                <tr>
+                    <td style="width:50px">Id</td>
+                    <td style="width:150px">First name</td>
+                    <td style="width:150px">Last name</td>
+                    <td>Company</td>
+                </tr>
+            </thead>
+            <tbody id="tablebody" class="table table-bordered">
+                @foreach (var emp in Model)
+                {
+                    <tr>
+                        <td>@emp.EmployeeID</td>
+                        <td>@emp.FirstName</td>
+                        <td>@emp.LastName</td>
+                        <td>@emp.Company.CompanyCodeName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    @*<div id="header" class="row">
+        <div class="col-md-1">ID</div>
+        <div class="col-md-3">First Name</div>
+        <div class="col-md-3">Last Name</div>
+        <div class="col-md-2">Company</div>
+    </div>
+    <div id="tablebody">
+        @foreach (var emp in Model)
+        {
+            <div class="row">
+                <div class="col-md-1">@emp.EmployeeID</div>
+                <div class="col-md-3">@emp.FirstName</div>
+                <div class="col-md-3">@emp.LastName</div>
+                <div class="col-md-2">@emp.Company.CompanyCodeName</div>
+            </div>
+        }
+    </div>*@
+
+</div>
+
+<div>
+    <button id="loadbtn" type="button" class="btn btn-primary" data-toggle="tooltip"
+            title="Load Table" onclick="loadTable()">
+        Load Data
+    </button>
+    <button id="hidebtn" type="button" class="btn btn-primary" data-toggle="tooltip" title="Hide Table">Hide</button>
+</div>
+
+<p><strong>Get Result</strong>: <text id="label"></text></p>
+
+
+
+<button id="clear" class="btn btn-danger">Clear</button>
+@section scripts
+{
+    <script src="~/Scripts/MyScript/TestJS.js"></script>
+    <script src="~/Scripts/MyScript/TestAjax.js"></script>
+    <script src="~/Scripts/MyScript/TestJQuery.js"></script>
+    <script src="~/Scripts/MyScript/Hide Table.js"></script>
+}

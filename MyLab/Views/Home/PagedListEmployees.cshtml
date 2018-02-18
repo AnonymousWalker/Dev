@@ -1,0 +1,40 @@
+﻿@model List<MyLab.ViewModel.EmployeeViewModel>
+@{
+    ViewBag.Title = "PagedListEmployees";
+}
+<p id="currentpage" class="hidden" title="@ViewBag.CurrentPage"></p>
+<a id="urlpage" class="hidden" href="@Url.Action("PagedList","Home")"></a>
+<h2>PagedListEmployees</h2>
+
+<ul class="pagination">
+    <li><a class="btn">1</a></li>
+    <li><a class="btn">2</a></li>
+</ul>
+<div id="table">
+    <table id="table " class="table-responsive">
+        <thead class="table table-bordered">
+            <tr>
+                <td style="width:50px">Id</td>
+                <td style="width:150px">First name</td>
+                <td style="width:150px">Last name</td>
+                <td>Company</td>
+            </tr>
+        </thead>
+        <tbody id="tablebody" class="table table-bordered">
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.EmployeeID</td>
+                    <td>@emp.FirstName</td>
+                    <td>@emp.LastName</td>
+                    <td>@emp.Company</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/MyScript/Pagination.js"></script>
+}

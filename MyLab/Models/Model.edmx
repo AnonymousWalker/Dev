@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AdministratorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminFile">
+          <Key>
+            <PropertyRef Name="AdminFileID" />
+          </Key>
+          <Property Name="AdminFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="SSN" Type="int" />
+          <Property Name="TitleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CompanyCodeName" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="AdminFileID" Type="int" />
+          <Property Name="EmployedById" Type="int" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Label" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="TitleId" />
+          </Key>
+          <Property Name="TitleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Label" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_AdminFile_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="AdminFile" Type="Self.AdminFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="AdminFile">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdminFile_Title">
+          <End Role="Title" Type="Self.Title" Multiplicity="1" />
+          <End Role="AdminFile" Type="Self.AdminFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Title">
+              <PropertyRef Name="TitleId" />
+            </Principal>
+            <Dependent Role="AdminFile">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_AdminFile">
+          <End Role="AdminFile" Type="Self.AdminFile" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminFile">
+              <PropertyRef Name="AdminFileID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AdminFileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdministratorModelStoreContainer">
+          <EntitySet Name="AdminFile" EntityType="Self.AdminFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdminFile_Gender" Association="Self.FK_AdminFile_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="AdminFile" EntitySet="AdminFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdminFile_Title" Association="Self.FK_AdminFile_Title">
+            <End Role="Title" EntitySet="Title" />
+            <End Role="AdminFile" EntitySet="AdminFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_AdminFile" Association="Self.FK_Employee_AdminFile">
+            <End Role="AdminFile" EntitySet="AdminFile" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Company" Association="Self.FK_Employee_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdministratorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminFile">
+          <Key>
+            <PropertyRef Name="AdminFileID" />
+          </Key>
+          <Property Name="AdminFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <Property Name="SSN" Type="Int32" />
+          <Property Name="TitleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_AdminFile_Gender" FromRole="AdminFile" ToRole="Gender" />
+          <NavigationProperty Name="Title" Relationship="Self.FK_AdminFile_Title" FromRole="AdminFile" ToRole="Title" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_AdminFile" FromRole="AdminFile" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdminFileID" Type="Int32" />
+          <Property Name="EmployedById" Type="Int32" />
+          <NavigationProperty Name="AdminFile" Relationship="Self.FK_Employee_AdminFile" FromRole="Employee" ToRole="AdminFile" />
+          <NavigationProperty Name="Company" Relationship="AdministratorModel.FK_Employee_Company" FromRole="Employee" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AdminFiles" Relationship="Self.FK_AdminFile_Gender" FromRole="Gender" ToRole="AdminFile" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="TitleId" />
+          </Key>
+          <Property Name="TitleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AdminFiles" Relationship="Self.FK_AdminFile_Title" FromRole="Title" ToRole="AdminFile" />
+        </EntityType>
+        <Association Name="FK_AdminFile_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="AdminFile" Type="Self.AdminFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="AdminFile">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdminFile_Title">
+          <End Role="Title" Type="Self.Title" Multiplicity="1" />
+          <End Role="AdminFile" Type="Self.AdminFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Title">
+              <PropertyRef Name="TitleId" />
+            </Principal>
+            <Dependent Role="AdminFile">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_AdminFile">
+          <End Role="AdminFile" Type="Self.AdminFile" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdminFile">
+              <PropertyRef Name="AdminFileID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AdminFileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdministratorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminFiles" EntityType="Self.AdminFile" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="Titles" EntityType="Self.Title" />
+          <AssociationSet Name="FK_AdminFile_Gender" Association="Self.FK_AdminFile_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="AdminFile" EntitySet="AdminFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdminFile_Title" Association="Self.FK_AdminFile_Title">
+            <End Role="Title" EntitySet="Titles" />
+            <End Role="AdminFile" EntitySet="AdminFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_AdminFile" Association="Self.FK_Employee_AdminFile">
+            <End Role="AdminFile" EntitySet="AdminFiles" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="Company" EntityType="AdministratorModel.Company" />
+          <AssociationSet Name="FK_Employee_Company" Association="AdministratorModel.FK_Employee_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyCodeName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="AdministratorModel.FK_Employee_Company" FromRole="Company" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_Company">
+          <End Type="AdministratorModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="AdministratorModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdministratorModelStoreContainer" CdmEntityContainer="AdministratorEntities">
+          <EntitySetMapping Name="AdminFiles">
+            <EntityTypeMapping TypeName="AdministratorModel.AdminFile">
+              <MappingFragment StoreEntitySet="AdminFile">
+                <ScalarProperty Name="AdminFileID" ColumnName="AdminFileID" />
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="TitleId" ColumnName="TitleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="AdministratorModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="AdminFileID" ColumnName="AdminFileID" />
+                <ScalarProperty Name="EmployedById" ColumnName="EmployedById" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="AdministratorModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Titles">
+            <EntityTypeMapping TypeName="AdministratorModel.Title">
+              <MappingFragment StoreEntitySet="Title">
+                <ScalarProperty Name="TitleId" ColumnName="TitleId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="AdministratorModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CompanyCodeName" ColumnName="CompanyCodeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
